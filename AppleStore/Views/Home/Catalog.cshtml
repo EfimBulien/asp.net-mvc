@@ -1,0 +1,30 @@
+@model IEnumerable<AppleStore.Models.Product>
+
+<div class="container mt-3">
+    <h1>Каталог iPhone Store</h1>
+    
+    <form method="get" asp-action="Catalog">
+        <div class="input-group mb-3">
+            <input type="text" name="searchString" class="form-control" placeholder="Поиск по названию" value="@ViewBag.CurrentFilter" />
+            <button class="btn btn-outline-secondary" type="submit">Поиск</button>
+        </div>
+    </form>
+
+    <div class="row">
+        @foreach (var product in Model)
+        {
+        <div class="col-md-4 mb-4 d-flex">
+            <div class="card h-100">
+                <img class="card-img-top" src="~/images/@product.ProductImage" alt="@product.ProductName" />
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">@product.ProductName</h5>
+                    <p class="card-text">@product.ProductPrice руб.</p>
+                    <div class="mt-auto">
+                        <a href="#" class="btn btn-primary">Купить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
