@@ -6,6 +6,21 @@
     <title>@ViewData["Title"] - iPhone Store</title>
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
 
@@ -40,15 +55,15 @@
 </nav>
 
 <div class="navbar-nav">
-    @if (User.Identity is { IsAuthenticated: true })
+    @if (User .Identity is { IsAuthenticated: true })
     {
-        <span class="nav-item nav-link">Привет, @User.Identity.Name!</span>
-        <a class="nav-item nav-link" asp-controller="Home" asp-action="LogOut">Выйти</a>
+    <span class="nav-item nav-link">Привет, @User .Identity.Name!</span>
+    <a class="nav-item nav-link" asp-controller="Home" asp-action="LogOut">Выйти</a>
     }
     else
     {
-        <a class="nav-item nav-link" asp-controller="Home" asp-action="SignIn">Войти</a>
-        <a class="nav-item nav-link" asp-controller="Home" asp-action="SignUp">Регистрация</a>
+    <a class="nav-item nav-link" asp-controller="Home" asp-action="SignIn">Войти</a>
+    <a class="nav-item nav-link" asp-controller="Home" asp-action="SignUp">Регистрация</a>
     }
 </div>
 

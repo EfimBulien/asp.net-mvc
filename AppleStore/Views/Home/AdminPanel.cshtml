@@ -1,12 +1,40 @@
 @{
-    ViewData["Title"] = "Админ панель";
+ViewData["Title"] = "Админ панель";
 }
 
-<h2>Админ панель</h2>
-<p>Редактирование таблиц и управление пользователями</p>
-<ul>
-    <li><a href="/Users/List">Пользователи</a></li>
-    <li><a href="/Products/List">Товары</a></li>
-    <li><a href="/Roles/List">Роли</a></li>
-</ul>
-
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2 class="text-center">Панель администратора</h2>
+        </div>
+        <div class="card-body">
+            <p class="text-muted text-center">Редактирование таблиц и управление пользователями</p>
+            <div class="list-group">
+                <a href="/Categories/List" class="list-group-item list-group-item-action">
+                    <i class="bi bi-folder"></i> Категории товаров
+                </a>
+                <a href="/Orders/List" class="list-group-item list-group-item-action">
+                    <i class="bi bi-bag"></i> Заказы
+                </a>
+                <a href="/PayWays/List" class="list-group-item list-group-item-action">
+                    <i class="bi bi-credit-card"></i> Методы оплаты
+                </a>
+                <a href="/Products/List" class="list-group-item list-group-item-action">
+                    <i class="bi bi-box-seam"></i> Товары
+                </a>
+                <a href="/Roles/List" class="list-group-item list-group-item-action">
+                    <i class="bi bi-people"></i> Роли
+                </a>
+                <a href="/Users/List" class="list-group-item list-group-item-action">
+                    <i class="bi bi-person"></i> Пользователи
+                </a>
+                <a href="/OrdersProducts/List" class="list-group-item list-group-item-action">
+                    <i class="bi bi-table"></i> Сводная таблица по заказам продуктов
+                </a>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <a href="/Home/Index" class="btn btn-secondary">Вернуться на главную</a>
+        </div>
+    </div>
+</div>

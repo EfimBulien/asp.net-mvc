@@ -1,0 +1,45 @@
+@model IEnumerable<AppleStore.Models.Product>
+@{
+    ViewData["Title"] = "Список товаров";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Список товаров</h2>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="/Products/Create" class="btn btn-success">Добавить товар</a>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>ID Категории</th>
+            <th>Бренд</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Категория</th>
+            <th>Количество</th>
+            <th>Стоимость</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.IDProduct</td>
+                <td>@product.CategoryID</td>
+                <td>@product.ProductBrand</td>
+                <td>@product.ProductName</td>
+                <td>@product.ProductDescription</td>
+                <td>@product.Category.CategoryType</td>
+                <td>@product.ProductCount</td>
+                <td>@product.ProductPrice &#8381;</td>
+                <td>
+                    <a href="/Products/Edit/@product.IDProduct" class="btn btn-warning btn-sm">Редактировать</a>
+                    <a href="/Products/Delete/@product.IDProduct" class="btn btn-danger btn-sm">Удалить</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

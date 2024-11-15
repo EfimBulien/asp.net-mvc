@@ -1,26 +1,53 @@
-/*
 using AppleStore.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AppleStore.Models;
 
 namespace AppleStore.Controllers;
 
-public class ProductController(ApplicationDbContext context) : Controller
+public class ProductsController(ApplicationDbContext context) : Controller
 {
-    public IActionResult Index()
+    public async Task<IActionResult> List()
     {
-        var products = context.Products.Include(p => p.Category).ToList();
+        var products = await context.Products
+            .Include(p => p.Category).ToListAsync();
         return View(products);
     }
     
-    public IActionResult Details(int id)
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
     {
-        var product = context.Products.FirstOrDefault(p => p.IDProduct == id);
+        var product = await context.Products.FindAsync(id);
         if (product == null)
         {
             return NotFound();
         }
+
+        ViewBag.Categories = await context.Categories.ToListAsync();
         return View(product);
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(Product product)
+    {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Categories = await context.Categories.ToListAsync();
+            return View(product);
+        }
+
+        context.Update(product);
+        await context.SaveChangesAsync();
+        return RedirectToAction("List");
+    }
+    
+    public async Task<IActionResult> Delete(int id)
+    {
+        var product = await context.Products.FindAsync(id);
+        if (product == null) return RedirectToAction("List");
+        context.Products.Remove(product);
+        await context.SaveChangesAsync();
+        return RedirectToAction("List");
+    }
 }
-*/

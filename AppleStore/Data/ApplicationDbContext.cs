@@ -9,6 +9,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Role> Roles { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderProduct> OrderProducts { get; set; }
+    public DbSet<PayWay> PayWays { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -17,12 +20,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.Entity<Category>().ToTable("categories");
         modelBuilder.Entity<User>().ToTable("users");
         modelBuilder.Entity<Role>().ToTable("roles");
-        /*
-        modelBuilder.Entity<Role>().HasData(
-            new Role { IDRole = 1, RoleName = "Администратор" },
-            new Role { IDRole = 2, RoleName = "Менеджер" },
-            new Role { IDRole = 3, RoleName = "Покупатель" }
-        );
-        */
+        modelBuilder.Entity<Order>().ToTable("orders");
+        modelBuilder.Entity<OrderProduct>().ToTable("ordersproducts");
+        modelBuilder.Entity<PayWay>().ToTable("payways");
     }
 }

@@ -1,0 +1,33 @@
+@model IEnumerable<AppleStore.Models.Role>
+@{
+ViewData["Title"] = "Список ролей";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Список ролей</h2>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="/Roles/Create" class="btn btn-success">Добавить роль</a>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>Название роли</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var role in Model)
+        {
+        <tr>
+            <td>@role.IDRole</td>
+            <td>@role.RoleName</td>
+            <td>
+                <a href="/Roles/Edit/@role.IDRole" class="btn btn-warning btn-sm">Редактировать</a>
+                <a href="/Roles/Delete/@role.IDRole" class="btn btn-danger btn-sm">Удалить</a>
+            </td>
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>

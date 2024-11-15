@@ -6,8 +6,10 @@ namespace AppleStore.Models;
 public class OrderProduct
 {
     [Key]
+    [Column("idorderproduct")]
     public int IDOrderProduct { get; set; }
     [ForeignKey("Order")]
+    [Column("orderid")]
     public int OrderID { get; set; }
     [ForeignKey("Product")]
     public int ProductID { get; set; }

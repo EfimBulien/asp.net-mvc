@@ -1,0 +1,33 @@
+@model IEnumerable<AppleStore.Models.PayWay>
+@{
+    ViewData["Title"] = "Методы оплаты";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Методы оплаты</h2>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="/Products/Create" class="btn btn-success">Добавить метод оплаты</a>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>Метод оплаты</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var payWay in Model)
+        {
+            <tr>
+                <td>@payWay.IDPayWay</td>
+                <td>@payWay.PayWayMethod</td>
+                <td>
+                    <a href="" class="btn btn-warning btn-sm">Редактировать</a>
+                    <a href="" class="btn btn-danger btn-sm">Удалить</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

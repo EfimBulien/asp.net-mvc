@@ -20,5 +20,5 @@ public class User
     [ForeignKey("Role")]
     [Column("roleid")]
     public int RoleID { get; set; }
-    public Role Role { get; set; }
+    public virtual Role Role { get; set; }
 }

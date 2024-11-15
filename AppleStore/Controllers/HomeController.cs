@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Security.Claims;
+using System.Text.Json;
 using AppleStore.Data;
 using Microsoft.AspNetCore.Mvc;
 using AppleStore.Models;
@@ -40,18 +41,60 @@ public class HomeController(ApplicationDbContext context) : Controller
 
     public IActionResult Cart()
     {
-        return View();
+        var cart = new Cart();
+        if (HttpContext.Session.Keys.Contains("Cart")) 
+            cart = JsonSerializer.Deserialize<Cart>(HttpContext.Session.GetString("Cart") ?? throw 
+                new InvalidOperationException());
+        return View(cart);
+    }
+
+    public IActionResult AddToCart()
+    {
+        var id = Convert.ToInt32(Request.Query["ID"]);
+        var cart = new Cart();
+        if (HttpContext.Session.Keys.Contains("Cart")) 
+            cart = JsonSerializer.Deserialize<Cart>(HttpContext.Session.GetString("Cart") ?? throw 
+                new InvalidOperationException());
+        cart?.cartLines.Add(context.Products.Find(id) ?? throw new InvalidOperationException());
+        HttpContext.Session.SetString("Cart", JsonSerializer.Serialize(cart));
+        return RedirectToAction("Index", "Home");
+    }
+    
+    public IActionResult RemoveFromCart()
+    {
+        var number = Convert.ToInt32(Request.Query["Number"]);
+        var cart = new Cart();
+        if (HttpContext.Session.Keys.Contains("Cart")) 
+            cart = JsonSerializer.Deserialize<Cart>(HttpContext.Session.GetString("Cart") ?? throw 
+                new InvalidOperationException());
+        cart?.cartLines.RemoveAt(number); 
+        HttpContext.Session.SetString("Cart", JsonSerializer.Serialize(cart));
+        return RedirectToAction("Cart", "Home");
+    }
+    
+    public IActionResult RemoveAllFromCart()
+    {
+        var id = Convert.ToInt32(Request.Query["ID"]);
+        var cart = new Cart();
+        if (HttpContext.Session.Keys.Contains("Cart")) 
+            cart = JsonSerializer.Deserialize<Cart>(HttpContext.Session.GetString("Cart") ?? throw 
+                new InvalidOperationException());
+        cart?.cartLines.RemoveAll(item => item.IDProduct == id); 
+        HttpContext.Session.SetString("Cart", JsonSerializer.Serialize(cart));
+        return RedirectToAction("Cart", "Home");
     }
     
     public IActionResult ManagerDashboard()
     {
-        if (HttpContext.Session.GetInt32("RoleID") != 2) return RedirectToAction("SignIn", "Home"); 
+        if (HttpContext.Session.GetInt32("RoleID") != 2) 
+            return RedirectToAction("SignIn", "Home"); 
         return View();
     }
 
     public IActionResult AdminPanel()
     {
-        if (HttpContext.Session.GetInt32("RoleID") != 3) return RedirectToAction("SignIn", "Home");
+        if (HttpContext.Session.GetInt32("RoleID") != 1) 
+            return RedirectToAction("SignIn", "Home");
         return View();
     }
 
@@ -65,7 +108,8 @@ public class HomeController(ApplicationDbContext context) : Controller
     [HttpGet]
     public IActionResult SignIn()
     {
-        if (HttpContext.Session.Keys.Contains("AuthUser")) return RedirectToAction("Index", "Home");
+        if (HttpContext.Session.Keys.Contains("AuthUser")) 
+            return RedirectToAction("Index", "Home");
         return View(new LoginModel());
     }
 
@@ -74,6 +118,7 @@ public class HomeController(ApplicationDbContext context) : Controller
     public async Task<IActionResult> SignIn(LoginModel model)
     {
         if (!ModelState.IsValid) return View(model);
+        
         var user = await context.Users
             .Include(u => u.Role)
             .FirstOrDefaultAsync(u => u.UserLogin == model.Login && u.UserPassword == model.Password);
@@ -82,23 +127,15 @@ public class HomeController(ApplicationDbContext context) : Controller
         {
             HttpContext.Session.SetString("AuthUser", user.UserLogin);
             HttpContext.Session.SetInt32("RoleID", user.RoleID);
-        
             await Authenticate(user.UserLogin);
-            Console.WriteLine(user.RoleID);
-            if (user.Role != null)
+            
+            return user.RoleID switch
             {
-                switch (user.RoleID)
-                {
-                    case 1:
-                        return RedirectToAction("AdminPanel", "Home");
-                    case 2:
-                        return RedirectToAction("ManagerDashboard", "Home");
-                    case 3:
-                        return RedirectToAction("Index", "Home");
-                    default:
-                        return RedirectToAction("Index", "Home");
-                }
-            }
+                1 => RedirectToAction("AdminPanel", "Home"),
+                2 => RedirectToAction("ManagerDashboard", "Home"),
+                3 => RedirectToAction("Index", "Home"),
+                _ => RedirectToAction("Index", "Home")
+            };
         }
         
         ModelState.AddModelError("", "Некорректные логин и(или) пароль");
@@ -107,8 +144,15 @@ public class HomeController(ApplicationDbContext context) : Controller
 
     private async Task Authenticate(string userLogin)
     {
-        var claims = new List<Claim> { new(ClaimsIdentity.DefaultNameClaimType, userLogin) };
-        var id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,
+        var claims = new List<Claim>
+        {
+            new(ClaimsIdentity.DefaultNameClaimType, userLogin)
+        };
+        
+        var id = new ClaimsIdentity (
+            claims, 
+            "ApplicationCookie", 
+            ClaimsIdentity.DefaultNameClaimType,
             ClaimsIdentity.DefaultRoleClaimType);
         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
     }
@@ -122,13 +166,8 @@ public class HomeController(ApplicationDbContext context) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> SignUp(User user, string confirmPassword)
     {
-        if (user == null)
-        {
-            ModelState.AddModelError("", "Ошибка при создании пользователя.");
-            return View(new User());
-        }
-        
-        if (!ModelState.IsValid) return View(user);
+        if (!ModelState.IsValid) 
+            return View(user);
         
         if (user.UserPassword != confirmPassword)
         {
@@ -136,8 +175,8 @@ public class HomeController(ApplicationDbContext context) : Controller
             return View(user);
         }
         
-        var existingUser = await context.Users
-            .FirstOrDefaultAsync(u => u.UserLogin == user.UserLogin || u.UserEmail == user.UserEmail);
+        var existingUser = await context.Users.FirstOrDefaultAsync(u => 
+            u.UserLogin == user.UserLogin || u.UserEmail == user.UserEmail);
 
         if (existingUser != null)
         {
@@ -155,6 +194,9 @@ public class HomeController(ApplicationDbContext context) : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View(new ErrorViewModel
+        {
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+        });
     }
 }

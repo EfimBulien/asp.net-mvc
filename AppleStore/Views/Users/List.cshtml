@@ -1,0 +1,43 @@
+@model IEnumerable<AppleStore.Models.User>
+@{
+    ViewData["Title"] = "Список пользователей";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Список пользователей</h2>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="/Users/Create" class="btn btn-success">Добавить пользователя</a>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>Логин</th>
+            <th>Пароль</th>
+            <th>Email</th>
+            <th>Дата создания</th>
+            <th>ID Роли</th>
+            <th>Роль</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.IDUser</td>
+                <td>@user.UserLogin</td>
+                <td>@user.UserPassword</td>
+                <td>@user.UserEmail</td>
+                <td>@user.CreationDate.ToShortDateString()</td>
+                <td>@user.RoleID</td>
+                <td>@user.Role?.RoleName</td>
+                <td>
+                    <a href="/Users/Edit/@user.IDUser" class="btn btn-warning btn-sm">Редактировать</a>
+                    <a href="/Users/Delete/@user.IDUser" class="btn btn-danger btn-sm">Удалить</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
