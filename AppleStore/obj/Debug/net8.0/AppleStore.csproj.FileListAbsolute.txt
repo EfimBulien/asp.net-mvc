@@ -109,3 +109,4 @@
 /Users/macbookair/RiderProjects/AppleStore/AppleStore/obj/Debug/net8.0/AppleStore.pdb
 /Users/macbookair/RiderProjects/AppleStore/AppleStore/obj/Debug/net8.0/AppleStore.genruntimeconfig.cache
 /Users/macbookair/RiderProjects/AppleStore/AppleStore/obj/Debug/net8.0/ref/AppleStore.dll
+/Users/macbookair/RiderProjects/AppleStore/AppleStore/bin/Debug/net8.0/Newtonsoft.Json.dll

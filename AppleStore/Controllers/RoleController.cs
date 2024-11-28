@@ -46,4 +46,9 @@ public class RolesController(ApplicationDbContext context) : Controller
         await context.SaveChangesAsync();
         return RedirectToAction("List");
     }
+
+    public IActionResult Create()
+    {
+        throw new NotImplementedException();
+    }
 }

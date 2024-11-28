@@ -20,7 +20,6 @@ public class Order
     public int PayWayID { get; set; }
     [Column("totalcount")]
     public int TotalCount { get; set; }
-    
     public virtual User User { get; set; }
     public virtual PayWay PayWay { get; set; }
     public virtual ICollection<OrderProduct> OrderProducts { get; set; }

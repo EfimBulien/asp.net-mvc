@@ -2,18 +2,13 @@ namespace AppleStore.Models;
 
 public class Cart
 {
-    public List<Product> cartLines { get; set; }
-    
-    public Cart()
-    {
-        cartLines = new List<Product>();
-    }
+    public List<Product> CartLines { get; set; } = [];
 
-    public decimal finalPrice
+    public decimal FinalPrice
     {
         get
         {
-            return cartLines.Sum(line => line.ProductPrice);
+            return CartLines.Sum(line => line.ProductPrice);
         }
     }
 }

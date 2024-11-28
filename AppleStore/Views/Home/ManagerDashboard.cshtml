@@ -1,8 +1,91 @@
+@using Newtonsoft.Json
 @{
-    ViewData["Title"] = "Панель менеджера";
+ViewData["Title"] = "Панель менеджера";
 }
 
-<h2>Панель менеджера</h2>
-<p>Добавление и управление товарами</p>
-<a href="/Products/Add">Добавить товар</a>
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h2 class="display-4">Панель менеджера</h2>
+        <p class="lead">Добавление, удаление и управление товарами</p>
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg" href="/Products/List" role="button">Управление товарами</a>
+    </div>
 
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="totalSalesChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="productSalesChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const salesData = @Html.Raw(JsonConvert.SerializeObject(Model));
+        const totalSalesCtx = document.getElementById('totalSalesChart').getContext('2d');
+        new Chart(totalSalesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Общее количество продаж'],
+                datasets: [{
+                    label: 'Продажи',
+                    data: [salesData.TotalSales],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        const productSalesCtx = document.getElementById('productSalesChart').getContext('2d');
+        new Chart(productSalesCtx, {
+            type: 'pie',
+            data: {
+                labels: salesData.ProductSales.map(p => p.ProductName),
+                datasets: [{
+                    label: 'Продажи товаров',
+                    data: salesData.ProductSales.map(p => p.TotalSales),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Распределение продаж товаров'
+                    }
+                }
+            },
+        });
+    });
+</script>

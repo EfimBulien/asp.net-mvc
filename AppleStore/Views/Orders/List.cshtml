@@ -6,7 +6,7 @@ ViewData["Title"] = "Список заказов";
 <div class="container mt-5">
     <h2 class="text-center">Список заказов</h2>
     <div class="d-flex justify-content-between mb-3">
-        <a href="/Products/Create" class="btn btn-success">Добавить заказ</a>
+        <a href="/Orders/Create" class="btn btn-success">Добавить заказ</a>
     </div>
     <table class="table table-striped table-hover">
         <thead class="table-primary">
@@ -18,6 +18,7 @@ ViewData["Title"] = "Список заказов";
             <th>Дата заказа</th>
             <th>Метод оплаты</th>
             <th>Сумма</th>
+            <th>Действия</th>
         </tr>
         </thead>
         <tbody>
@@ -32,7 +33,7 @@ ViewData["Title"] = "Список заказов";
             <td>@order.PayWay.PayWayMethod</td>
             <td>@order.TotalCount &#8381;</td>
             <td>
-                <a href="/Orders/Details/@order.IDOrder" class="btn btn-info btn-sm">Детали</a>
+                <a href="/Orders/Edit/@order.IDOrder" class="btn btn-warning btn-sm">Редактировать</a>
                 <a href="/Orders/Delete/@order.IDOrder" class="btn btn-danger btn-sm">Удалить</a>
             </td>
         </tr>

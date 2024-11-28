@@ -14,20 +14,20 @@ public class CategoriesController(ApplicationDbContext context) : Controller
     }
     
     [HttpGet]
-    public async Task<IActionResult> Edit(int id)
+    public IActionResult Edit(int id)
     {
-        var category = await context.Categories.FindAsync(id);
+        var category = context.Categories.Find(id);
         if (category == null) return NotFound();
         return View(category);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(Category category)
+    public IActionResult Edit(Category category)
     {
         if (!ModelState.IsValid) return View(category);
-        context.Update(category);
-        await context.SaveChangesAsync();
+        context.Categories.Update(category);
+        context.SaveChanges();
         return RedirectToAction("List");
     }
     
@@ -37,6 +37,22 @@ public class CategoriesController(ApplicationDbContext context) : Controller
         if (category == null) return RedirectToAction("List");
         context.Categories.Remove(category);
         await context.SaveChangesAsync();
+        return RedirectToAction("List");
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View(new Category());
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Category category)
+    {
+        if (!ModelState.IsValid) return View(category);
+        context.Categories.Add(category);
+        context.SaveChanges();
         return RedirectToAction("List");
     }
 }

@@ -17,10 +17,7 @@ public class PayWaysController(ApplicationDbContext context) : Controller
     public async Task<IActionResult> Edit(int id)
     {
         var payWay = await context.PayWays.FindAsync(id);
-        if (payWay == null)
-        {
-            return NotFound();
-        }
+        if (payWay == null) return NotFound();
         return View(payWay);
     }
 
@@ -28,11 +25,7 @@ public class PayWaysController(ApplicationDbContext context) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(PayWay payWay)
     {
-        if (!ModelState.IsValid)
-        {
-            return View(payWay);
-        }
-
+        if (!ModelState.IsValid) return View(payWay);
         context.Update(payWay);
         await context.SaveChangesAsync();
         return RedirectToAction("List");
@@ -44,6 +37,22 @@ public class PayWaysController(ApplicationDbContext context) : Controller
         if (payWay == null) return RedirectToAction("List");
         context.PayWays.Remove(payWay);
         await context.SaveChangesAsync();
+        return RedirectToAction("List");
+    }
+
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View(new PayWay());
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(PayWay payWay)
+    {
+        if (!ModelState.IsValid) return View(payWay);
+        context.PayWays.Add(payWay);
+        context.SaveChanges();
         return RedirectToAction("List");
     }
 }

@@ -1,8 +1,37 @@
-@model Product
-
+@model AppleStore.Models.Product
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "Редактирование товара";
 }
 
-<h2>title</h2>
+<div class="container mt-5">
+    <h2 class="text-center">Редактирование товара</h2>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" name="IDProduct" value="@Model.IDProduct" />
+        <div class="form-group">
+            <label for="CategoryID">ID Категории</label>
+            <input type="text" class="form-control" id="CategoryID" name="CategoryID" value="@Model.CategoryID" required />
+        </div>
+        <div class="form-group">
+            <label for="ProductBrand">Бренд</label>
+            <input type="text" class="form-control" id="ProductBrand" name="ProductBrand" value="@Model.ProductBrand" required />
+        </div>
+        <div class="form-group">
+            <label for="ProductName">Название</label>
+            <input type="text" class="form-control" id="ProductName" name="ProductName" value="@Model.ProductName" required />
+        </div>
+        <div class="form-group">
+            <label for="ProductDescription">Описание</label>
+            <textarea class="form-control" id="ProductDescription" name="ProductDescription" rows="3" required>@Model.ProductDescription</textarea>
+        </div>
+        <div class="form-group">
+            <label for="ProductCount">Количество</label>
+            <input type="number" class="form-control" id="ProductCount" name="ProductCount" value="@Model.ProductCount" required />
+        </div>
+        <div class="form-group">
+            <label for="ProductPrice">Стоимость</label>
+            <input type="number" step="0.01" class="form-control" id="ProductPrice" name="ProductPrice" value="@Model.ProductPrice" required />
+        </div>
+        <button type="submit" class="btn btn-warning">Сохранить</button>
+        <a href="/Products/List" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
