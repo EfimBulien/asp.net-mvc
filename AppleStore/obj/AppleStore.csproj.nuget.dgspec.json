@@ -1,18 +1,19 @@
 {
   "format": 1,
   "restore": {
-    "/Users/macbookair/RiderProjects/AppleStore/AppleStore/AppleStore.csproj": {}
+    "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/AppleStore.csproj": {}
   },
   "projects": {
-    "/Users/macbookair/RiderProjects/AppleStore/AppleStore/AppleStore.csproj": {
+    "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/AppleStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/macbookair/RiderProjects/AppleStore/AppleStore/AppleStore.csproj",
+        "projectUniqueName": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/AppleStore.csproj",
         "projectName": "AppleStore",
-        "projectPath": "/Users/macbookair/RiderProjects/AppleStore/AppleStore/AppleStore.csproj",
+        "projectPath": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/AppleStore.csproj",
         "packagesPath": "/Users/macbookair/.nuget/packages/",
-        "outputPath": "/Users/macbookair/RiderProjects/AppleStore/AppleStore/obj/",
+        "outputPath": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/obj/",
         "projectStyle": "PackageReference",
+        "UsingMicrosoftNETSdk": false,
         "configFilePaths": [
           "/Users/macbookair/.nuget/NuGet/NuGet.Config"
         ],
@@ -32,6 +33,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -41,6 +47,10 @@
             "Chart.js": {
               "target": "Package",
               "version": "[3.7.1, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.5.1, )"
             },
             "Microsoft.AspNetCore.Authentication.Cookies": {
               "target": "Package",

@@ -47,8 +47,19 @@ public class RolesController(ApplicationDbContext context) : Controller
         return RedirectToAction("List");
     }
 
+    [HttpGet]
     public IActionResult Create()
     {
-        throw new NotImplementedException();
+        return View(new Role());
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Role role)
+    {
+        if (!ModelState.IsValid) return View(role);
+        context.Roles.Add(role);
+        context.SaveChanges();
+        return RedirectToAction("List");
     }
 }

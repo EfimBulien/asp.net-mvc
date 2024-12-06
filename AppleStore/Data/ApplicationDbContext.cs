@@ -12,7 +12,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderProduct> OrderProducts { get; set; }
     public DbSet<PayWay> PayWays { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

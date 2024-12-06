@@ -41,6 +41,7 @@ public class UsersController(ApplicationDbContext context) : Controller
         return RedirectToAction("List");
     }
     
+    [HttpDelete]
     public async Task<IActionResult> Delete(int id)
     {
         var user = await context.Users.FindAsync(id);

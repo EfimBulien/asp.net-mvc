@@ -19,10 +19,17 @@ ViewData["Title"] = "Панель менеджера";
             <canvas id="productSalesChart"></canvas>
         </div>
     </div>
+    
+    <div class="export-buttons">
+        <a href="/Home/ExportToJson" class="btn btn-primary">Выгрузить в JSON</a>
+        <a href="/Home/ExportToExcel" class="btn btn-success">Выгрузить данные в Excel</a>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    
+
     document.addEventListener('DOMContentLoaded', function () {
         const salesData = @Html.Raw(JsonConvert.SerializeObject(Model));
         const totalSalesCtx = document.getElementById('totalSalesChart').getContext('2d');

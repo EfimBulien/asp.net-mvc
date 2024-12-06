@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <PackageReference Include="Chart.js" Version="3.7.1" />
+      <PackageReference Include="EPPlus" Version="7.5.1" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.2.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
         <PrivateAssets>all</PrivateAssets>

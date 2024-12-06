@@ -11,12 +11,18 @@
         {
             <div class="col-md-4 mb-4 d-flex">
                 <div class="card h-100">
-                    <img class="card-img-top" src="~/images/@product.ProductImage" alt="@product.ProductName" />
+                    <img class="card-img-top" src="~/images/@product.ProductImage"
+                         alt="@product.ProductName" />
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">@product.ProductName</h5>
                         <p class="card-text">@product.ProductPrice руб.</p>
                         <div class="mt-auto">
-                            <a href="/Home/AddToCart?ID=@product.IDProduct" class="btn btn-primary">Купить</a>
+                            <a href="/Home/AddToCart?ID=@product.IDProduct"
+                               class="btn btn-primary">Купить</a>
+                        </div>
+                        <div class="mt-auto">
+                            <a href="/Home/AddToFavorites?ID=@product.IDProduct"
+                               class="btn btn-primary">Добавить в избранное</a>
                         </div>
                     </div>
                 </div>

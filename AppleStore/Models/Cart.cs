@@ -1,14 +1,15 @@
 namespace AppleStore.Models;
-
-public class Cart
-{
-    public List<Product> CartLines { get; set; } = [];
-
-    public decimal FinalPrice
+    public class Cart
     {
-        get
+        public int CartID { get; set; }
+        public string UserLogin { get; set; }
+        public List<Product> CartLines { get; set; } = [];
+
+        public decimal FinalPrice
         {
-            return CartLines.Sum(line => line.ProductPrice);
+            get
+            {
+                return CartLines.Sum(line => line.ProductPrice);
+            }
         }
     }
-}

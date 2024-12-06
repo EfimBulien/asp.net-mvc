@@ -17,7 +17,7 @@ ViewData["Title"] = "Список заказов";
             <th>Email Пользователя</th>
             <th>Дата заказа</th>
             <th>Метод оплаты</th>
-            <th>Сумма</th>
+            <th>Количество</th>
             <th>Действия</th>
         </tr>
         </thead>
@@ -31,7 +31,7 @@ ViewData["Title"] = "Список заказов";
             <td>@order.User.UserEmail</td>
             <td>@order.OrderDate.ToShortDateString()</td>
             <td>@order.PayWay.PayWayMethod</td>
-            <td>@order.TotalCount &#8381;</td>
+            <td>@order.TotalCount</td>
             <td>
                 <a href="/Orders/Edit/@order.IDOrder" class="btn btn-warning btn-sm">Редактировать</a>
                 <a href="/Orders/Delete/@order.IDOrder" class="btn btn-danger btn-sm">Удалить</a>
