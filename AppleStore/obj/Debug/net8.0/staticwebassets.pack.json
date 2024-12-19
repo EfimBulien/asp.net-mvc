@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets/images/apple_tv.jpg"
     },
     {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/images/favicon.ico",
+      "PackagePath": "staticwebassets/images/favicon.ico"
+    },
+    {
       "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/images/imac_m4.jpg",
       "PackagePath": "staticwebassets/images/imac_m4.jpg"
     },

@@ -1,8 +1,36 @@
-
-
+@model AppleStore.Models.User
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    ViewData["Title"] = "Добавление пользователя";
 }
 
-<h2>title</h2>
+<div class="container mt-5">
+    <h2 class="text-center">Добавление товара</h2>
+    <form asp-action="Create" asp-controller="Users" method="post">
+        <div class="form-group">
+            <label for="">ID Категории</label>
+            <input type="number" class="form-control" id="" name="" required />
+        </div>
+        <div class="form-group">
+            <label for="ProductBrand">Бренд</label>
+            <input type="text" class="form-control" id="ProductBrand" name="ProductBrand" required />
+        </div>
+        <div class="form-group">
+            <label for="ProductName">Название</label>
+            <input type="text" class="form-control" id="ProductName" name="ProductName" required />
+        </div>
+        <div class="form-group">
+            <label for="ProductDescription">Описание</label>
+            <textarea class="form-control" id="ProductDescription" name="ProductDescription" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="ProductCount">Количество</label>
+            <input type="number" class="form-control" id="ProductCount" name="ProductCount" required />
+        </div>
+        <div class="form-group">
+            <label for="ProductPrice">Стоимость</label>
+            <input type="number" step="0.01" class="form-control" id="ProductPrice" name="ProductPrice" required />
+        </div>
+        <button type="submit" class="btn btn-success">Добавить</button>
+        <a href="/Users/List" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>

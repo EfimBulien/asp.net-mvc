@@ -13,27 +13,15 @@ namespace AppleStore.Controllers;
 public class HomeController(ApplicationDbContext context) : Controller
 {
     private const string CartCookieName = "UserCart";
-    private const string FavoritesSessionName = "Favorites";
+    private const string FavoritesCookieName = "UserFavorites";
     private const string AuthSessionName = "AuthUser";
-    private const string RoleSessionName = "RoleID";
+    internal const string RoleSessionName = "RoleID";
     private const string CartSessionName = "Cart";
     
     public IActionResult Index()
     {
         var products = context.Products.Include(p => p.Category).ToList();
         return View(products);
-    }
-
-    public IActionResult Catalog(string searchString)
-    {
-        var products = context.Products.AsQueryable();
-        if (!string.IsNullOrEmpty(searchString))
-        {
-            products = products.Where(p => p.ProductName.ToLower().Contains(searchString.ToLower()));
-        }
-        
-        ViewBag.CurrentFilter = searchString;
-        return View(products.ToList());
     }
     
     public IActionResult About()
@@ -48,14 +36,14 @@ public class HomeController(ApplicationDbContext context) : Controller
 
     public IActionResult Favorites()
     {
-        var favorites = GetFavoritesFromSession();
+        var favorites = GetFavoritesFromCookies();
         var favoriteProducts = context.Products
             .Include(p => p.Category)
             .Where(p => favorites.Contains(p.IDProduct))
             .ToList();
         return View(favoriteProducts);
     }
-    
+
     public IActionResult Cart()
     {
         var cart = GetCartFromCookies();
@@ -125,38 +113,6 @@ public class HomeController(ApplicationDbContext context) : Controller
         });
     }
     
-    public IActionResult ManagerDashboard()
-    {
-        if (HttpContext.Session.GetInt32(RoleSessionName) != 2) 
-            return RedirectToAction("SignIn", "Home");
-            
-        var totalSales = context.Orders.Count();
-            
-        var productSales = context.OrderProducts
-            .GroupBy(op => op.Product.IDProduct)
-            .Select(g => new
-            {
-                ProductId = g.Key,
-                TotalSales = g.Sum(op => op.TotalCount),
-                g.First().Product.ProductName
-            }).ToList();
-
-        var salesData = new 
-        {
-            TotalSales = totalSales,
-            ProductSales = productSales
-        };
-
-        return View(salesData);
-    }
-
-    public IActionResult AdminPanel()
-    {
-        if (HttpContext.Session.GetInt32(RoleSessionName) != 1) 
-            return RedirectToAction("SignIn", "Home");
-        return View();
-    }
-
     public async Task<IActionResult> LogOut()
     {
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -191,8 +147,8 @@ public class HomeController(ApplicationDbContext context) : Controller
 
             return user.RoleID switch
             {
-                1 => RedirectToAction("AdminPanel", "Home"),
-                2 => RedirectToAction("ManagerDashboard", "Home"),
+                1 => RedirectToAction("Admin", "Admin"),
+                2 => RedirectToAction("Manager", "Manager"),
                 3 => RedirectToAction("Index", "Home"),
                 _ => RedirectToAction("Index", "Home")
             };
@@ -256,7 +212,7 @@ public class HomeController(ApplicationDbContext context) : Controller
 
     public IActionResult Checkout()
     {
-        var cart = GetCartFromSession();
+        var cart = GetCartFromCookies();
         if (cart.CartLines.Count == 0)
         {
             TempData["Error"] = "Корзина пуста.";
@@ -277,8 +233,7 @@ public class HomeController(ApplicationDbContext context) : Controller
 
         return File(fileBytes, "text/plain", "checkout.txt");
     }
-
-
+    
     private static string GenerateCheckoutDetails(Cart cart)
     {
         var checkoutDetails = new System.Text.StringBuilder();
@@ -297,135 +252,72 @@ public class HomeController(ApplicationDbContext context) : Controller
 
     private static string SaveCheckoutDetailsToFile(string checkoutDetails)
     {
-        var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Checkouts");
-        if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-        var fileName = $"checkout_{DateTime.Now:yyyyMMddHHmmss}.txt";
-        var filePath = Path.Combine(directoryPath, fileName);
-        System.IO.File.WriteAllText(filePath, checkoutDetails);
-        return filePath;
-    }
+        try
+        {
+            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Checkouts");
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
 
-    private Cart GetCartFromSession()
-    {
-        var cart = new Cart();
-        if (!HttpContext.Session.Keys.Contains(CartSessionName)) return cart;
-        var cartJson = HttpContext.Session.GetString("Cart");
-        if (!string.IsNullOrEmpty(cartJson)) cart = JsonSerializer.Deserialize<Cart>(cartJson);
-        return cart ?? throw new InvalidOperationException();
+            var fileName = $"checkout_{DateTime.Now:yyyyMMddHHmmss}.txt";
+            var filePath = Path.Combine(directoryPath, fileName);
+            System.IO.File.WriteAllText(filePath, checkoutDetails);
+            return filePath;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Ошибка при сохранении чека: {ex.Message}");
+            return string.Empty;
+        }
     }
         
     public IActionResult AddToFavorites(int id)
     {
-        var favorites = GetFavoritesFromSession();
+        var favorites = GetFavoritesFromCookies();
         if (favorites.Contains(id)) return RedirectToAction("Favorites");
+
         favorites.Add(id);
-        SaveFavoritesToSession(favorites);
+        SaveFavoritesToCookies(favorites);
         return RedirectToAction("Favorites");
     }
 
     public IActionResult RemoveFromFavorites(int id)
     {
-        var favorites = GetFavoritesFromSession();
+        var favorites = GetFavoritesFromCookies();
         if (!favorites.Contains(id)) return RedirectToAction("Favorites");
+
         favorites.Remove(id);
-        SaveFavoritesToSession(favorites);
+        SaveFavoritesToCookies(favorites);
         return RedirectToAction("Favorites");
     }
 
-    private List<int> GetFavoritesFromSession()
+    private List<int> GetFavoritesFromCookies()
     {
         var favorites = new List<int>();
-        if (!HttpContext.Session.Keys.Contains(FavoritesSessionName)) 
-            return favorites ?? throw new InvalidOperationException();
-        var favoritesJson = HttpContext.Session.GetString(FavoritesSessionName);
-        if (!string.IsNullOrEmpty(favoritesJson)) favorites = JsonSerializer.Deserialize<List<int>>(favoritesJson);
-        return favorites ?? throw new InvalidOperationException();
-    }
+        var userLogin = HttpContext.Session.GetString(AuthSessionName);
 
-    private void SaveFavoritesToSession(List<int> favorites)
-    {
-        HttpContext.Session.SetString(FavoritesSessionName, JsonSerializer.Serialize(favorites));
-    }
-    
-    [HttpGet]
-    public IActionResult ExportToJson()
-    {
-        var totalSales = context.Orders.Count();
+        if (string.IsNullOrEmpty(userLogin)) return favorites;
 
-        var productSales = context.OrderProducts
-            .GroupBy(op => op.Product.IDProduct)
-            .Select(g => new
-            {
-                ProductId = g.Key,
-                TotalSales = g.Sum(op => op.TotalCount),
-                ProductName = g.First().Product.ProductName
-            }).ToList();
-
-        var salesData = new
+        var cookieValue = Request.Cookies[$"{FavoritesCookieName}_{userLogin}"];
+        if (!string.IsNullOrEmpty(cookieValue))
         {
-            TotalSales = totalSales,
-            ProductSales = productSales
-        };
-
-        var json = JsonSerializer.Serialize(salesData, new JsonSerializerOptions { WriteIndented = true });
-
-        var fileName = $"SalesReport_{DateTime.Now:yyyyMMddHHmmss}.json";
-        var fileBytes = System.Text.Encoding.UTF8.GetBytes(json);
-
-        return File(fileBytes, "application/json", fileName);
-    }
-    
-    [HttpGet]
-    public IActionResult ExportToExcel()
-    {
-        var row = 6;
-        var totalSales = context.Orders.Count();
-
-        var productSales = context.OrderProducts
-            .GroupBy(op => op.Product.IDProduct)
-            .Select(g => new
-            {
-                ProductId = g.Key,
-                TotalSales = g.Sum(op => op.TotalCount),
-                ProductName = g.First().Product.ProductName
-            }).ToList();
-
-        var salesData = new
-        {
-            TotalSales = totalSales,
-            ProductSales = productSales
-        };
-
-        using var package = new OfficeOpenXml.ExcelPackage();
-        var worksheet = package.Workbook.Worksheets.Add("Sales Report");
-        
-        worksheet.Cells[1, 1].Value = "Sales Report";
-        worksheet.Cells[1, 1, 1, 3].Merge = true;
-        worksheet.Cells[1, 1].Style.Font.Bold = true;
-        worksheet.Cells[1, 1].Style.Font.Size = 16;
-        worksheet.Cells[3, 1].Value = "Total Sales:";
-        worksheet.Cells[3, 2].Value = salesData.TotalSales;
-        worksheet.Cells[5, 1].Value = "Product ID";
-        worksheet.Cells[5, 2].Value = "Product Name";
-        worksheet.Cells[5, 3].Value = "Total Sales";
-        worksheet.Cells[5, 1, 5, 3].Style.Font.Bold = true; 
-        
-        foreach (var product in salesData.ProductSales)
-        {
-            worksheet.Cells[row, 1].Value = product.ProductId;
-            worksheet.Cells[row, 2].Value = product.ProductName;
-            worksheet.Cells[row, 3].Value = product.TotalSales;
-            row++;
+            favorites = JsonSerializer.Deserialize<List<int>>(cookieValue) ?? new List<int>();
         }
-
-        worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
-
-        var stream = new MemoryStream();
-        package.SaveAs(stream);
-        stream.Position = 0;
-
-        return File(stream.ToArray(),
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            $"SalesReport_{DateTime.Now:yyyy-MM-dd-HH-mm}.xlsx");
+        return favorites;
     }
+
+    private void SaveFavoritesToCookies(List<int> favorites)
+    {
+        var userLogin = HttpContext.Session.GetString(AuthSessionName);
+        if (string.IsNullOrEmpty(userLogin)) return;
+
+        var favoritesJson = JsonSerializer.Serialize(favorites);
+        Response.Cookies.Append($"{FavoritesCookieName}_{userLogin}", favoritesJson, new CookieOptions
+        {
+            Expires = DateTimeOffset.Now.AddDays(7),
+            HttpOnly = true
+        });
+    }
+
 }

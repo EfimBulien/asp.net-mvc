@@ -1,6 +1,0 @@
-Checkout Details:
------------------
-Product: MacBook Pro 14 M3 8GB/512GB, Price: 199999,99, Quantity: 1
-Product: MacBook Pro 14 M3 8GB/512GB, Price: 199999,99, Quantity: 1
------------------
-Total Price: 399999,98

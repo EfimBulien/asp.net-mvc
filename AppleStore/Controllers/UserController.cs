@@ -50,4 +50,9 @@ public class UsersController(ApplicationDbContext context) : Controller
         await context.SaveChangesAsync();
         return RedirectToAction("List");
     }
+
+    public IActionResult Create()
+    {
+        throw new NotImplementedException();
+    }
 }

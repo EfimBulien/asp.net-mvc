@@ -18,6 +18,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/macbookair/Development/RiderProjects/AppleStore/AppleStore
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Admin/Admin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW4vQWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Catalog/Catalog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2F0YWxvZy9DYXRhbG9nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Categories/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2F0ZWdvcmllcy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -34,16 +42,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9BYm91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Home/AdminPanel.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9BZG1pblBhbmVsLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Home/Cart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9DYXJ0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Home/Catalog.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9DYXRhbG9nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Home/Favorites.cshtml]
@@ -52,10 +52,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Home/ManagerDashboard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9NYW5hZ2VyRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Home/Privacy.cshtml]
@@ -68,6 +64,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Home/SignUp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9TaWduVXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Manager/Manager.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWFuYWdlci9NYW5hZ2VyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/Views/Orders/Create.cshtml]

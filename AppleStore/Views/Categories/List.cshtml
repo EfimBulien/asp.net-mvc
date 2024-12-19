@@ -20,11 +20,11 @@
         @foreach (var category in Model)
         {
             <tr>
-                <td>@category.IDCategory</td>
+                <td>@category.IdCategory</td>
                 <td>@category.CategoryType</td>
                 <td>
-                    <a href="/Categories/Edit/@category.IDCategory" class="btn btn-warning btn-sm">Редактировать</a>
-                    <a href="/Categories/Delete/@category.IDCategory" class="btn btn-danger btn-sm">Удалить</a>
+                    <a href="/Categories/Edit/@category.IdCategory" class="btn btn-warning btn-sm">Редактировать</a>
+                    <a href="/Categories/Delete/@category.IdCategory" class="btn btn-danger btn-sm">Удалить</a>
                 </td>
             </tr>
         }

@@ -1,0 +1,5 @@
+Checkout Details:
+-----------------
+Product: AirPods Pro 2, Price: 24999,99, Quantity: 1
+-----------------
+Total Price: 24999,99

@@ -6,7 +6,7 @@ ViewData["Title"] = "Редактировать категорию";
 <div class="container mt-5">
     <h2 class="text-center">Редактировать категорию</h2>
     <form asp-action="Edit" method="post">
-        <input type="hidden" asp-for="IDCategory" />
+        <input type="hidden" asp-for="IdCategory" />
         <div class="mb-3">
             <label asp-for="CategoryType" class="form-label">Название категории</label>
             <input asp-for="CategoryType" class="form-control" required />

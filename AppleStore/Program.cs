@@ -4,12 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
-{
-    options.LoginPath = new PathString("/Home/SignIn");
-});
+builder.Services.AddDbContext<ApplicationDbContext>(options => options
+    .UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => { options.LoginPath = new PathString("/Home/SignIn"); });
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -34,5 +32,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 
-app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=SignIn}/{id?}");
+app.MapControllerRoute("default", pattern: "{controller=Home}/{action=SignIn}/{id?}");
 app.Run();

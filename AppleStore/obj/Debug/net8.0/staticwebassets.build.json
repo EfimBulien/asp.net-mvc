@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SGLgCJAAHQX+dspDWwJnKcnTxxUmmQds2DzZlUyea9I=",
+  "Hash": "BqwnmJ6envs4RvawioESDNSfwOFLH5ZiXnPDFLUlSCQ=",
   "Source": "AppleStore",
   "BasePath": "_content/AppleStore",
   "Mode": "Default",
@@ -148,6 +148,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/images/apple_tv.jpg"
+    },
+    {
+      "Identity": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/images/favicon.ico",
+      "SourceId": "AppleStore",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/",
+      "BasePath": "_content/AppleStore",
+      "RelativePath": "images/favicon.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/favicon.ico"
     },
     {
       "Identity": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/images/imac_m4.jpg",

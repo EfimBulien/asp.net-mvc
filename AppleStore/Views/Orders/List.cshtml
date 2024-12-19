@@ -24,19 +24,19 @@ ViewData["Title"] = "Список заказов";
         <tbody>
         @foreach (var order in Model)
         {
-        <tr>
-            <td>@order.IDOrder</td>
-            <td>@order.UserID</td>
-            <td>@order.User.UserLogin</td>
-            <td>@order.User.UserEmail</td>
-            <td>@order.OrderDate.ToShortDateString()</td>
-            <td>@order.PayWay.PayWayMethod</td>
-            <td>@order.TotalCount</td>
-            <td>
-                <a href="/Orders/Edit/@order.IDOrder" class="btn btn-warning btn-sm">Редактировать</a>
-                <a href="/Orders/Delete/@order.IDOrder" class="btn btn-danger btn-sm">Удалить</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@order.IDOrder</td>
+                <td>@order.UserID</td>
+                <td>@order.User.UserLogin</td>
+                <td>@order.User.UserEmail</td>
+                <td>@order.OrderDate.ToShortDateString()</td>
+                <td>@order.PayWay.PayWayMethod</td>
+                <td>@order.TotalCount</td>
+                <td>
+                    <a href="/Orders/Edit/@order.IDOrder" class="btn btn-warning btn-sm">Редактировать</a>
+                    <a href="/Orders/Delete/@order.IDOrder" class="btn btn-danger btn-sm">Удалить</a>
+                </td>
+            </tr>
         }
         </tbody>
     </table>

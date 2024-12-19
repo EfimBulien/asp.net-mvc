@@ -7,7 +7,7 @@ public class Category
 {
     [Key]
     [Column("idcategory")]
-    public int IDCategory { get; set; }
+    public int IdCategory { get; set; }
     [Column("category")]
     public string CategoryType { get; set; }
 }

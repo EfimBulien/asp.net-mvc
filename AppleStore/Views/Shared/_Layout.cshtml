@@ -11,12 +11,12 @@
             height: 100%;
             margin: 0;
         }
-        
+
         body {
             display: flex;
             flex-direction: column;
         }
-        
+
         .container {
             flex: 1;
         }
@@ -24,6 +24,7 @@
 </head>
 <body>
 
+<!-- Хэдер -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" asp-action="Index" asp-controller="Home">iPhone Store</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -36,7 +37,7 @@
                 <a class="nav-link" asp-action="Index" asp-controller="Home">Главная страница</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" asp-action="Catalog" asp-controller="Home">Каталог</a>
+                <a class="nav-link" asp-action="Catalog" asp-controller="Catalog">Каталог</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-action="Favorites" asp-controller="Home">Избранные</a>
@@ -49,7 +50,7 @@
     <div class="navbar-nav">
         @if (User.Identity is { IsAuthenticated: true })
         {
-        <span class="nav-item nav-link text-info">Привет, @User.Identity.Name!</span>
+        <a class="nav-item nav-link text-info">Привет, @User.Identity.Name!</a>
         <a class="nav-item nav-link text-danger " asp-controller="Home" asp-action="LogOut">Выйти</a>
         }
         else
@@ -60,10 +61,12 @@
     </div>
 </nav>
 
+<!-- Контент -->
 <div class="container">
     @RenderBody()
 </div>
 
+<!-- Футер -->
 <footer class="bg-light text-center text-lg-start">
     <div class="container p-4">
         <section>
@@ -71,9 +74,9 @@
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
                     <h5 class="text-uppercase">Каталог</h5>
                     <ul class="list-unstyled mb-0">
-                        <li><a asp-action="Catalog" asp-controller="Home" class="text-dark">iPhone 16</a></li>
-                        <li><a asp-action="Catalog" asp-controller="Home" class="text-dark">iPhone 15</a></li>
-                        <li><a asp-action="Catalog" asp-controller="Home" class="text-dark">iPhone Accessories</a></li>
+                        <li><a asp-action="Catalog" asp-controller="Catalog" class="text-dark">iPhone 16</a></li>
+                        <li><a asp-action="Catalog" asp-controller="Catalog" class="text-dark">iPhone 15</a></li>
+                        <li><a asp-action="Catalog" asp-controller="Catalog" class="text-dark">iPhone Accessories</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
@@ -105,7 +108,6 @@
     </div>
     <div class="text-center p-3 bg-dark text-white">© 2024 iPhone Store. Все права защищены.</div>
 </footer>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 @await RenderSectionAsync("Scripts", required: false)
