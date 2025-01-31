@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" asp-action="Index" asp-controller="Home">iPhone Store</a>
+    <button class="navbar-toggler" 
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#navbarNav" 
+            aria-controls="navbarNav" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="Home">Главная страница</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Catalog" asp-controller="Catalog">Каталог</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Favorites" asp-controller="Home">Избранные</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Cart" asp-controller="Home">Корзина</a>
+            </li>
+            @if (User.Identity?.Name == "admin")
+            {
+                <li class="nav-item">
+                    <a class="nav-link text-primary" asp-controller="Admin" asp-action="Admin">Панель админа</a>
+                </li>
+            }
+            @if (User.Identity?.Name == "manager")
+            {
+                <li class="nav-item">
+                    <a class="nav-link text-primary" asp-controller="Manager" asp-action="Manager">Панель менеджера</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="navbar-nav">
+        @if (User.Identity is { IsAuthenticated: true })
+        {
+            <a class="nav-item nav-link text-info">Привет, @User.Identity.Name!</a>
+            <a class="nav-item nav-link text-danger" asp-controller="Home" asp-action="LogOut">Выйти</a>
+        }
+        else
+        {
+            <a class="nav-item nav-link text-primary" asp-controller="Home" asp-action="SignIn">Войти</a>
+            <a class="nav-item nav-link text-primary" asp-controller="Home" asp-action="SignUp">Регистрация</a>
+        }
+    </div>
+</nav>

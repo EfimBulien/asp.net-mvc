@@ -1,7 +1,9 @@
 @model AppleStore.Models.User
 @{
-ViewData["Title"] = "Регистрация";
+    ViewData["Title"] = "Регистрация";
 }
+
+<link rel="stylesheet" href="~/css/signup.css" />
 
 <h2>Регистрация</h2>
 <form asp-action="SignUp" method="post">
@@ -26,3 +28,5 @@ ViewData["Title"] = "Регистрация";
     </div>
     <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
 </form>
+
+<script src="~/js/signup.js"></script>

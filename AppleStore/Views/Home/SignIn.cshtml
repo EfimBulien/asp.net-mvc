@@ -1,8 +1,10 @@
 @model AppleStore.Models.LoginModel
 
 @{
-ViewData["Title"] = "SignIn";
+    ViewData["Title"] = "SignIn";
 }
+
+<link rel="stylesheet" href="~/css/signin.css" />
 
 <h1>Войдите в аккаунт</h1>
 
@@ -21,3 +23,5 @@ ViewData["Title"] = "SignIn";
 <div>
     <a href="@Url.Action("SignUp", "Home")">Нету аккаунта? Зарегистрируйтесь!</a>
 </div>
+
+<script src="~/js/signin.js"></script>

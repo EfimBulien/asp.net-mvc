@@ -1,0 +1,5 @@
+Checkout Details:
+-----------------
+Product: iPhone 16 Pro Max 256GB, Price: 174999,99, Quantity: 1
+-----------------
+Total Price: 174999,99

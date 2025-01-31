@@ -12,6 +12,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Order> Orders { get; set; }
     public DbSet<OrderProduct> OrderProducts { get; set; }
     public DbSet<PayWay> PayWays { get; set; }
+    public DbSet<Review> Reviews { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -22,5 +23,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.Entity<Order>().ToTable("orders");
         modelBuilder.Entity<OrderProduct>().ToTable("ordersproducts");
         modelBuilder.Entity<PayWay>().ToTable("payways");
+        modelBuilder.Entity<Review>().ToTable("reviews");
     }
 }

@@ -1,52 +1,44 @@
 @model IEnumerable<AppleStore.Models.Product>
 
-<style>
-    .glass-card {
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-        overflow: hidden;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+@{
+    ViewData["Title"] = "Catalog";
+}
 
-    .glass-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .glass-search {
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        border-radius: 5px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-        padding: 15px;
-    }
-    
-    body {
-        background-size: cover;
-    }
-</style>
+<link rel="stylesheet" href="~/css/catalog.css" />
 
 <div class="container mt-3">
     <h1>Каталог iPhone Store</h1>
 
-    <form method="get" asp-action="Catalog" class="glass-search mb-4">
+    <form method="get" asp-action="Catalog" class="glass-search mb-4 fade-in">
         <div class="row g-3">
             <div class="col-md-4">
                 <input type="text" name="searchString" class="form-control" placeholder="Поиск по названию"
                        value="@ViewBag.CurrentFilter" />
             </div>
             <div class="col-md-3">
-                <input type="number" name="priceMin" class="form-control" placeholder="Мин. цена" />
+                <input type="number" name="priceMin" class="form-control" placeholder="Мин. цена"
+                       value="@ViewBag.PriceMin" />
             </div>
             <div class="col-md-2">
-                <input type="number" name="priceMax" class="form-control" placeholder="Макс. цена" />
+                <input type="number" name="priceMax" class="form-control" placeholder="Макс. цена"
+                       value="@ViewBag.PriceMax" />
+            </div>
+            <div class="col-md-3">
+                <select name="categoryId" class="form-control">
+                    <option value="">Все категории</option>
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        var isSelected = ViewBag.CategoryId != null 
+                                         && ViewBag.CategoryId.ToString() == category.IdCategory.ToString();
+                        <option value="@category.IdCategory" selected="@isSelected">
+                            @category.CategoryType
+                        </option>
+                    }
+                </select>
             </div>
         </div>
         <div class="text-end mt-3">
-            <button class="btn btn-primary" type="submit">Фильтр</button>
+            <button class="btn btn-primary" type="submit">Поиск</button>
         </div>
     </form>
 
@@ -56,11 +48,12 @@
     }
     else
     {
-        <div class="row">
+        <div class="row" id="product-container">
             @foreach (var product in Model)
             {
-                <div class="col-md-4 mb-4 d-flex">
-                    <div class="card glass-card h-100">
+                <div class="col-md-4 mb-4 d-flex product-card fade-in">
+                    <a href="@Url.Action("Product", "Catalog", new { id = product.IDProduct })"
+                       class="card glass-card h-100 text-decoration-none text-dark">
                         <img class="card-img-top" src="~/images/@product.ProductImage"
                              alt="@product.ProductName" />
                         <div class="card-body d-flex flex-column">
@@ -69,18 +62,12 @@
                                 @product.ProductDescription
                             </p>
                             <p class="card-text">@product.ProductPrice руб.</p>
-                            <div class="mt-3">
-                                <a href="/Home/AddToCart?ID=@product.IDProduct"
-                                   class="btn btn-outline-primary">Купить</a>
-                            </div>
-                            <div class="mt-3">
-                                <a href="/Home/AddToFavorites?ID=@product.IDProduct"
-                                   class="btn btn-outline-success">Добавить в избранное</a>
-                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             }
         </div>
     }
 </div>
+
+<script src="~/js/catalog.js"></script>

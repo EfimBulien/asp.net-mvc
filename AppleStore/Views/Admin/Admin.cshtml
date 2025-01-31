@@ -1,6 +1,17 @@
 @{
-ViewData["Title"] = "Админ панель";
+    ViewData["Title"] = "Админ панель";
 }
+
+<style>
+    .btn {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+</style>
 
 <div class="container mt-5">
     <div class="card">
@@ -38,3 +49,5 @@ ViewData["Title"] = "Админ панель";
         </div>
     </div>
 </div>
+
+<script src="~/js/admin.js"></script>

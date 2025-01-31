@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AppleStore.Controllers;
 
-public class HomeController(ApplicationDbContext context) : Controller
+public class HomeController(ApplicationDbContext context, IWebHostEnvironment env) : Controller
 {
     private const string CartCookieName = "UserCart";
     private const string FavoritesCookieName = "UserFavorites";
     private const string AuthSessionName = "AuthUser";
     internal const string RoleSessionName = "RoleID";
     private const string CartSessionName = "Cart";
-    
+
     public IActionResult Index()
     {
         var products = context.Products.Include(p => p.Category).ToList();
@@ -218,7 +218,7 @@ public class HomeController(ApplicationDbContext context) : Controller
             TempData["Error"] = "Корзина пуста.";
             return RedirectToAction("Cart");
         }
-        
+
         var checkoutDetails = GenerateCheckoutDetails(cart);
         var filePath = SaveCheckoutDetailsToFile(checkoutDetails);
 
@@ -233,7 +233,7 @@ public class HomeController(ApplicationDbContext context) : Controller
 
         return File(fileBytes, "text/plain", "checkout.txt");
     }
-    
+
     private static string GenerateCheckoutDetails(Cart cart)
     {
         var checkoutDetails = new System.Text.StringBuilder();
@@ -250,11 +250,11 @@ public class HomeController(ApplicationDbContext context) : Controller
         return checkoutDetails.ToString();
     }
 
-    private static string SaveCheckoutDetailsToFile(string checkoutDetails)
+    private string SaveCheckoutDetailsToFile(string checkoutDetails)
     {
         try
         {
-            var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "Checkouts");
+            var directoryPath = Path.Combine(env.WebRootPath, "checkouts");
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
@@ -319,5 +319,4 @@ public class HomeController(ApplicationDbContext context) : Controller
             HttpOnly = true
         });
     }
-
 }

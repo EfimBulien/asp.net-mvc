@@ -1,0 +1,33 @@
+@model double
+
+<div class="average-rating text-center p-4">
+    @if (Model > 0)
+    {
+        <h5 class="rating-title">Средняя оценка</h5>
+        <p class="rating-value"><strong>@Model.ToString("F1")</strong> звёзд</p>
+    }
+    else
+    {
+        <h5 class="rating-title">Рейтинг отсутствует</h5>
+    }
+</div>
+
+<style>
+    .average-rating {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        
+        max-width: 300px;
+    }
+
+    .rating-title {
+        font-size: 1.25rem;
+        color: #343a40;
+    }
+
+    .rating-value {
+        font-size: 2rem;
+        color: #ffc107;
+    }
+</style>

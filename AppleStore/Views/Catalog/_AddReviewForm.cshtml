@@ -1,0 +1,22 @@
+@model AddReviewViewModel
+
+<form asp-action="AddReview" asp-controller="Catalog" method="post">
+    <input type="hidden" asp-for="ProductId" />
+
+    <div class="form-group">
+        <label for="Rating">Оценка (1-5 звёзд)</label>
+        <select asp-for="Rating" class="form-control" id="Rating" required>
+            @for (var i = 1; i <= 5; i++)
+            {
+                <option value="@i">@i звезда(-ы)</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="Text">Текст отзыва</label>
+        <textarea asp-for="Text" class="form-control" id="Text" rows="4" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>

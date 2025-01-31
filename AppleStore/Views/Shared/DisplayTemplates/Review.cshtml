@@ -1,0 +1,16 @@
+@model AppleStore.Models.Review
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">@Model.User.UserLogin</h5>
+        <p class="card-text">
+            <strong>Оценка:</strong>
+            @for (var i = 0; i < Model.Rating; i++)
+            {
+                <span class="text-warning">⭐</span>
+            }
+        </p>
+        <p class="card-text"><strong>Отзыв:</strong> @Model.ReviewText</p>
+        <p class="card-text"><small class="text-muted"><strong>Дата:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</small></p>
+    </div>
+</div>

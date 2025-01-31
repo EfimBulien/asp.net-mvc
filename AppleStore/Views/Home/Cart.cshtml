@@ -1,69 +1,22 @@
 @model AppleStore.Models.Cart
 
 @{
-    ViewBag.Title = "Корзина";
+    ViewBag.Title = "Cart";
     Layout = "_Layout";
 }
 
-<style>
-    .glass-table {
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .glass-table th, .glass-table td {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    .glass-table tr:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transition: background 0.3s ease;
-    }
-
-    .btn {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .img-thumbnail {
-        border: none;
-        max-width: 100px;
-        max-height: 100px;
-        object-fit: cover;
-    }
-
-    .total {
-        margin-top: 20px;
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
-
-    .actions a {
-        margin-right: 10px;
-    }
-
-    .actions {
-        margin-top: 20px;
-    }
-</style>
+<link rel="stylesheet" href="~/css/cart.css" />
 
 <div class="container">
     <h1>Ваши товары в корзине</h1>
 
     @if (Model.CartLines.Count == 0)
     {
-        <div class="alert alert-info">Ваша корзина пуста.</div>
+        <div class="alert alert-info fade-in">Ваша корзина пуста.</div>
     }
     else
     {
-        <div class="table-responsive">
+        <div class="table-responsive fade-in">
             <table class="table glass-table">
                 <thead>
                 <tr>
@@ -77,7 +30,7 @@
                 @for (var i = 0; i < Model.CartLines.Count; i++)
                 {
                     var product = Model.CartLines[i];
-                    <tr>
+                    <tr class="fade-in">
                         <td>
                             <img src="~/images/@product.ProductImage"
                                  alt="@product.ProductName"
@@ -95,14 +48,16 @@
             </table>
         </div>
 
-        <div class="total">
+        <div class="total fade-in">
             <h3>Итого: @Model.FinalPrice.ToString("C")</h3>
         </div>
 
-        <div class="actions">
+        <div class="actions fade-in">
             <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Продолжить покупки</a>
             <a href="@Url.Action("Checkout", "Home")" class="btn btn-success">Оформить заказ</a>
             <a href="@Url.Action("RemoveAllFromCart", "Home")" class="btn btn-warning">Очистить корзину</a>
         </div>
     }
 </div>
+
+<script src="~/js/cart.js"></script>

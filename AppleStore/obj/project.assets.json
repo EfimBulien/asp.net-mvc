@@ -3976,7 +3976,6 @@
       "packagesPath": "/Users/macbookair/.nuget/packages/",
       "outputPath": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/obj/",
       "projectStyle": "PackageReference",
-      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "/Users/macbookair/.nuget/NuGet/NuGet.Config"
       ],

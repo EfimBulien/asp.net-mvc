@@ -24,4 +24,5 @@ public class Product
     [Column("productcount")]
     public int ProductCount { get; set; }
     public virtual Category Category { get; set; }
+    public ICollection<Review> Reviews { get; set; }
 }

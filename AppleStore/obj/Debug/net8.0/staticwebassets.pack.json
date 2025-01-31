@@ -5,6 +5,42 @@
       "PackagePath": "staticwebassets/AppleStore.bundle.scp.css"
     },
     {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/checkouts/checkout_20241220131205.txt",
+      "PackagePath": "staticwebassets/checkouts/checkout_20241220131205.txt"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/css/cart.css",
+      "PackagePath": "staticwebassets/css/cart.css"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/css/catalog.css",
+      "PackagePath": "staticwebassets/css/catalog.css"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/css/favorites.css",
+      "PackagePath": "staticwebassets/css/favorites.css"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/css/index.css",
+      "PackagePath": "staticwebassets/css/index.css"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/css/manager.css",
+      "PackagePath": "staticwebassets/css/manager.css"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/css/product.css",
+      "PackagePath": "staticwebassets/css/product.css"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/css/signin.css",
+      "PackagePath": "staticwebassets/css/signin.css"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/css/signup.css",
+      "PackagePath": "staticwebassets/css/signup.css"
+    },
+    {
       "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },
@@ -23,10 +59,6 @@
     {
       "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/images/apple_tv.jpg",
       "PackagePath": "staticwebassets/images/apple_tv.jpg"
-    },
-    {
-      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/images/favicon.ico",
-      "PackagePath": "staticwebassets/images/favicon.ico"
     },
     {
       "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/images/imac_m4.jpg",
@@ -67,6 +99,42 @@
     {
       "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/images/watch_ultra.jpg",
       "PackagePath": "staticwebassets/images/watch_ultra.jpg"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/js/admin.js",
+      "PackagePath": "staticwebassets/js/admin.js"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/js/cart.js",
+      "PackagePath": "staticwebassets/js/cart.js"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/js/catalog.js",
+      "PackagePath": "staticwebassets/js/catalog.js"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/js/favorites.js",
+      "PackagePath": "staticwebassets/js/favorites.js"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/js/index.js",
+      "PackagePath": "staticwebassets/js/index.js"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/js/manager.js",
+      "PackagePath": "staticwebassets/js/manager.js"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/js/product.js",
+      "PackagePath": "staticwebassets/js/product.js"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/js/signin.js",
+      "PackagePath": "staticwebassets/js/signin.js"
+    },
+    {
+      "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/js/signup.js",
+      "PackagePath": "staticwebassets/js/signup.js"
     },
     {
       "Id": "/Users/macbookair/Development/RiderProjects/AppleStore/AppleStore/wwwroot/js/site.js",

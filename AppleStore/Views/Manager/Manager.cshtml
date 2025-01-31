@@ -1,14 +1,16 @@
 @using Newtonsoft.Json
 @{
-ViewData["Title"] = "Панель менеджера";
+    ViewData["Title"] = "Панель менеджера";
 }
+
+<link rel="stylesheet" href="~/css/manager.css" />
 
 <div class="container mt-5">
     <div class="jumbotron">
         <h2 class="display-4">Панель менеджера</h2>
         <p class="lead">Добавление, удаление и управление товарами</p>
         <hr class="my-4">
-        <a class="btn btn-primary btn-lg" href="/Products/List" role="button">Управление товарами</a>
+        <a class="btn btn-primary btn-lg custom-btn" href="/Products/List" role="button">Управление товарами</a>
     </div>
 
     <div class="row">
@@ -19,19 +21,19 @@ ViewData["Title"] = "Панель менеджера";
             <canvas id="productSalesChart"></canvas>
         </div>
     </div>
-    
+
     <div class="export-buttons">
-        <a href="/Manager/ExportToJson" class="btn btn-primary">Выгрузить в JSON</a>
-        <a href="/Manager/ExportToExcel" class="btn btn-success">Выгрузить данные в Excel</a>
+        <a href="/Manager/ExportToJson" class="btn btn-primary custom-btn">Выгрузить в JSON</a>
+        <a href="/Manager/ExportToExcel" class="btn btn-success custom-btn">Выгрузить данные в Excel</a>
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/js/manager.js"></script>
 <script>
-    
-
     document.addEventListener('DOMContentLoaded', function () {
         const salesData = @Html.Raw(JsonConvert.SerializeObject(Model));
+
         const totalSalesCtx = document.getElementById('totalSalesChart').getContext('2d');
         new Chart(totalSalesCtx, {
             type: 'bar',
@@ -53,7 +55,7 @@ ViewData["Title"] = "Панель менеджера";
                 }
             }
         });
-        
+
         const productSalesCtx = document.getElementById('productSalesChart').getContext('2d');
         new Chart(productSalesCtx, {
             type: 'pie',

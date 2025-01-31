@@ -1,0 +1,56 @@
+@model AppleStore.Models.Product
+
+@{
+    ViewData["Title"] = "Product";
+}
+
+<link rel="stylesheet" href="~/css/product.css" />
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Изображение продукта -->
+        <div class="col-md-6">
+            <img class="img-fluid" src="~/images/@Model.ProductImage" alt="@Model.ProductName" />
+        </div>
+
+        <!-- Информация о продукте -->
+        <div class="col-md-6">
+            <h1>@Model.ProductName</h1>
+            <p class="text-muted">@Model.ProductDescription</p>
+            <h3>@Model.ProductPrice руб.</h3>
+            <div class="mt-4">
+                <a href="/Home/AddToCart?ID=@Model.IDProduct" class="btn btn-primary custom-btn">Купить</a>
+                <a href="/Home/AddToFavorites?ID=@Model.IDProduct" class="btn btn-success custom-btn">Добавить в избранное</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Средний рейтинг -->
+    <div class="mt-4">
+        @await Component.InvokeAsync("AverageRating", new { productId = Model.IDProduct })
+    </div>
+
+    <!-- Список отзывов -->
+    <div class="mt-4">
+        <h3>Отзывы</h3>
+        @if (Model.Reviews.Any())
+        {
+            foreach (var review in Model.Reviews)
+            {
+                @Html.DisplayFor(m => review, "Review")
+            }
+        }
+        else
+        {
+            <p>Отзывы отсутствуют.</p>
+        }
+    </div>
+
+    <!-- Форма для добавления нового отзыва -->
+    <div class="mt-4">
+        <h3>Оставить отзыв</h3>
+        @await Html.PartialAsync("_AddReviewForm", new AddReviewViewModel { ProductId = Model.IDProduct })
+    </div>
+</div>
+
+<script src="~/js/product.js"></script>
